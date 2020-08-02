@@ -90,7 +90,7 @@ class HomeView extends React.Component {
                     onPress={() => {
                         this.clearTimer();
                         console.log('FINISH COUNTING and NAVIGATE TO THE NEXT PAGE', time);
-                        this.props.navigation.navigate('Finish');
+                        this.props.navigation.navigate('Finish',{timeSpent: time});
                         this.setState({
                             time: 0,
                         });

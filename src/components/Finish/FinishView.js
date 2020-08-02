@@ -6,14 +6,14 @@ import ActionButton from './ActionButton';
 import i18n from '../../i18n/i18n';
 import moment from 'moment';
 import AsyncStorage from '@react-native-community/async-storage';
+import { ACTIVITY_STORAGE_KEY } from '../../config/consts';
 
 const FinishView = props => {
     const timeSpent = props.route.params.timeSpent;
     const [name, setName] = useState('');
 
     const saveTime = async () => {
-        const storageKey = '@activities';
-        let activities = await AsyncStorage.getItem(storageKey);
+        let activities = await AsyncStorage.getItem(ACTIVITY_STORAGE_KEY);
         if(activities === null){
             activities = []
         } else {

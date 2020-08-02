@@ -4,6 +4,7 @@ import HomeViewStyles from './HomeViewStyles';
 import i18n from '../../i18n/i18n';
 import StopWatchButton from '../StopWatchButton/StopWatchButton';
 import AsyncStorage from '@react-native-community/async-storage';
+import { APP_STATE_CHANGED_TIMESTAMP_STORAGE_KEY, IS_PAUSED_STORAGE_KEY, TIME_STORAGE_KEY } from '../../config/consts';
 
 class HomeView extends React.Component {
     constructor(props) {
@@ -21,16 +22,16 @@ class HomeView extends React.Component {
         const now = new Date().getTime();
         console.log('this',this);
         const {time, paused} = this.state;
-        const readTime = parseInt(await AsyncStorage.getItem('@time'));
+        const readTime = parseInt(await AsyncStorage.getItem(TIME_STORAGE_KEY));
         const readStateChangeTimestamp = parseInt(
-            await AsyncStorage.getItem('@appStateChangedTimeStamp')
+            await AsyncStorage.getItem(APP_STATE_CHANGED_TIMESTAMP_STORAGE_KEY)
         );
         console.log('stored data', readStateChangeTimestamp, readTime);
         const timeDifference = now - readStateChangeTimestamp;
         const newTime = readTime + timeDifference; 
 
         if(nextAppState === 'active'){
-            const isPaused = await AsyncStorage.getItem('@isPaused');
+            const isPaused = await AsyncStorage.getItem(IS_PAUSED_STORAGE_KEY);
             // THIS IS WHAT HE HAD: const wasPaused = isPaused && isPaused === 'true';
             const wasPaused = isPaused === 'true';
             let newState = {
@@ -43,9 +44,9 @@ class HomeView extends React.Component {
             this.setState(newState, this.startTimer);
         }
         else {
-            await AsyncStorage.setItem('@isPaused', paused === true ? 'true' : 'false')
-            await AsyncStorage.setItem('@time', time);
-            await AsyncStorage.setItem('@appStateChangedTimeStamp', now);
+            await AsyncStorage.setItem(IS_PAUSED_STORAGE_KEY, paused === true ? 'true' : 'false')
+            await AsyncStorage.setItem(TIME_STORAGE_KEY, time);
+            await AsyncStorage.setItem(APP_STATE_CHANGED_TIMESTAMP_STORAGE_KEY, now);
         }
     }
 

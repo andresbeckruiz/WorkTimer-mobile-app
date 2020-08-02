@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
 import i18n from '../../i18n/i18n';
 import HistoryViewStyles from './HistoryViewStyles';
+import {ACTIVITY_STORAGE_KEY} from '../../config/consts'
 
 class HistoryView extends React.Component {
     constructor(props) {
@@ -18,12 +19,12 @@ class HistoryView extends React.Component {
 
     async getActivities() {
         console.log('running!')
-        const activities = await AsyncStorage.getItem('@activities');
+        const activities = await AsyncStorage.getItem(ACTIVITY_STORAGE_KEY);
         let parsedActivities = [];
         if (activities !== null) {
             parsedActivities = JSON.parse(activities);
         }
-        this.setState({parsedActivities});
+        this.setState({parsedActivities: parsedActivities.reverse()});
     }
 
     renderItem({item}) {

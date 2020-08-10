@@ -45,8 +45,8 @@ class HomeView extends React.Component {
         }
         else {
             await AsyncStorage.setItem(IS_PAUSED_STORAGE_KEY, paused === true ? 'true' : 'false')
-            await AsyncStorage.setItem(TIME_STORAGE_KEY, time);
-            await AsyncStorage.setItem(APP_STATE_CHANGED_TIMESTAMP_STORAGE_KEY, now);
+            await AsyncStorage.setItem(TIME_STORAGE_KEY, JSON.stringify(time));
+            await AsyncStorage.setItem(APP_STATE_CHANGED_TIMESTAMP_STORAGE_KEY, JSON.stringify(now));
         }
     }
 

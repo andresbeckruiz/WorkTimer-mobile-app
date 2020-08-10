@@ -13,7 +13,7 @@ class HistoryView extends React.Component {
         parsedActivities: [],
         };
         this.getActivities = this.getActivities.bind(this);
-        props.navigation.addListener('willFocus', this.getActivities);
+        props.navigation.addListener('focus', this.getActivities);
         //this.getActivities();
     }
 
@@ -41,7 +41,7 @@ class HistoryView extends React.Component {
                     </View>
                     <View>
                         <Text style={HistoryViewStyles.historyItemDetailsText}>
-                {moment.utc(item.timeSpent).format(i18n.TIME_FORMAT)}
+                    {moment.utc(item.timeSpent).format(i18n.TIME_FORMAT)}
                         </Text>
                     </View>
                 </View>

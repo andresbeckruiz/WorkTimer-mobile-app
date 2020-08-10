@@ -13,6 +13,7 @@ const FinishView = props => {
     const [name, setName] = useState('');
 
     const saveTime = async () => {
+        console.log(ACTIVITY_STORAGE_KEY);
         let activities = await AsyncStorage.getItem(ACTIVITY_STORAGE_KEY);
         if(activities === null){
             activities = []
@@ -25,7 +26,7 @@ const FinishView = props => {
             timeSpent,
             date
         })
-        await AsyncStorage.setItem(storageKey, JSON.stringify(activities));
+        await AsyncStorage.setItem(ACTIVITY_STORAGE_KEY, JSON.stringify(activities));
         props.navigation.goBack();
     }
 
